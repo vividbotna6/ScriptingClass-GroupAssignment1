@@ -26,7 +26,7 @@ public class movement : MonoBehaviour
         Vector3 move = new Vector3(movementx, 0, movementz);
         move = transform.rotation * move;
         model.rotation = Quaternion.LookRotation(move.normalized, Vector3.up);
-        rb.AddForce(move * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = move * moveSpeed * Time.fixedDeltaTime;
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
         isMoving = rb.velocity.magnitude > .2;
         if (isMoving && currentAnimation!="Walk")

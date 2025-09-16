@@ -27,7 +27,7 @@ public class positionCheck : MonoBehaviour
         if (Vector3.Distance(Player.position, positionEnd) < DistancetoPoint)
         {
             int nextIndex = (SceneManager.GetActiveScene().buildIndex + 1);
-            if (SceneManager.GetAllScenes().Length - 1 >= nextIndex)
+            if (1 >= nextIndex)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 FinishedGame = true;

@@ -35,6 +35,7 @@ public class positionCheck : MonoBehaviour
             else
             {
                 menu.enabled = true;
+                Cursor.lockState = CursorLockMode.Confined;
                 Debug.Log("Menu");
             }
         }

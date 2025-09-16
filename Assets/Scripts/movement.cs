@@ -8,10 +8,13 @@ public class movement : MonoBehaviour
     private float moveSpeed;
     public Rigidbody rb;
     public float rotateSpeed;
-
+    private bool isMoving;
+    public Animator animator;
+    private string currentAnimation;
+    public Transform model;
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+
     }
     // Update is called once per frame
     void Update()
@@ -22,10 +25,20 @@ public class movement : MonoBehaviour
         transform.rotation *= Quaternion.Euler(0, yrot*rotateSpeed*Time.deltaTime, 0);
         Vector3 move = new Vector3(movementx, 0, movementz);
         move = transform.rotation * move;
-       rb.AddForce(move * moveSpeed * Time.fixedDeltaTime);
-
-
+        model.rotation = Quaternion.LookRotation(move.normalized, Vector3.up);
+        rb.AddForce(move * moveSpeed * Time.fixedDeltaTime);
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        isMoving = rb.velocity.magnitude > .2;
+        if (isMoving && currentAnimation!="Walk")
+        {
+            animator.CrossFade("Walk", 0);
+            currentAnimation = "Walk";
+        }
+        if (!isMoving && currentAnimation != "Idle")
+        {
+            animator.CrossFade("Idle", 0);
+            currentAnimation = "Idle";
+        }
 
         if (isSprinting)
         {
